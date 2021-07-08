@@ -11,7 +11,6 @@ Created on Wed May  5 20:12:48 2021
 import pandas as pd
 from snownlp import SnowNLP
 from snownlp import sentiment
-#import matplotlib.pyplot as plt
 
 #读取取的csv文件,标题在第3列,序号为2
 df=pd.read_csv('douban_movie.csv', header=None,usecols=[2])
@@ -25,9 +24,6 @@ score=[]
 
 
 for content in contents:
-    #print(content)
-    #a=SnowNLP(content[0])
-    #print(a.words)
     try:
         s=SnowNLP(content[0])
         #情绪判断，返回值为正面情绪的概率，越接近1表示正面情绪，越接近0表示负面情绪
