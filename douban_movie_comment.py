@@ -10,14 +10,12 @@ import requests
 import pandas as pd
 import re
 import time
-#import csv
 from bs4 import BeautifulSoup
-#import os
-#from urllib import request
+
 #url请求文件头
 header = {'Content-Type':'text/html; charset=utf-8','User-Agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36'}
 
-#登录cookies
+#登录cookies，具体需要自己的豆瓣账号
 Cookie ={'Cookie':'ll="118164"; bid=skjwGPUWDvE; __utmv=30149280.19040; __yadk_uid=gi3fUghbVgYJ3LH3jRftPlitQCgD29Zh; douban-fav-remind=1; push_doumail_num=0; push_noty_num=0; ps=y; __gads=ID=b0743a627afc3cd6-2269ab265bc600f0:T=1615430999:S=ALNI_MZwctcx3dtLCA_HIdYGw32F3wEMGg; ct=y; __utmz=30149280.1619251615.25.17.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; __utmc=30149280; ap_v=0,6.0; __utma=30149280.543365500.1615257365.1620185404.1620214964.28; _pk_ref.100001.8cb4=%5B%22%22%2C%22%22%2C1620215534%2C%22https%3A%2F%2Fwww.baidu.com%2Flink%3Furl%3DRCUkCvtfVJCBcavp1-B_90DI2jPi6RN40Z1ccq_DJtXlMdAn7te_mHCVfm2Pncz5%26wd%3D%26eqid%3Dd547f7220060f81400000005609286c5%22%5D; _pk_ses.100001.8cb4=*; __utmt=1; _pk_id.100001.8cb4=9049a2656c40a08f.1615257361.26.1620215671.1619955371.; __utmb=30149280.11.9.1620215672801; dbcl2="190409620:viCtJvwqEqo"'}
 
 #构造请求网址
