@@ -4,6 +4,7 @@ Created on Wed May  5 21:16:07 2021
 
 @author: 13397
 """
+#根据用户打分的分组,对每组的情感值求平均
 import pandas as pd
 from collections import Counter
 
@@ -14,7 +15,6 @@ df=pd.read_csv('douban_movie.csv')
 recommend_list=df['recommend'].values.tolist()
 num_count=Counter(recommend_list)
 
-
 #显示热评中不网分值的评论数里
 print(num_count)
 
@@ -23,11 +23,12 @@ grouped=df.groupby('recommend').describe().reset_index()
 recommend=grouped['recommend'].values.tolist()
 print(recommend)
 
-#根据用户打分的分组,对每组的情感值求平均
 sentiment_average =df.groupby('recommend')['score'].mean()
 sentiment_scores=sentiment_average.values
 print(sentiment_scores)
 
+
+#以下为可视化操作，主要包括柱状图，饼状图，动态线性图
 from bs4 import BeautifulSoup
 import time
 import pandas as pd
@@ -45,6 +46,8 @@ keys = num_count.keys()
 values = num_count.values()
 plt.bar(keys, values)
 plt.show()
+
+
 #饼状图
 mpl.rcParams["font.sans-serif"] = ["SimHei"]
 mpl.rcParams["axes.unicode_minus"] = False
@@ -65,3 +68,27 @@ plt.legend(elements,title="名称含义")
 #            title="名称含义",
 #            bbox_to_anchor=(0.91, 0, 0.3, 1))
 plt.show()
+
+
+#动态线性趋势图
+comments_num = df.groupby('time').count()['user'].values.tolist()
+print(comments_num)
+df.groupby('time').count().index.to_list()
+
+from pyecharts.charts import Line
+import pyecharts.options as opts
+line = Line()
+line.add_xaxis(df.groupby('time').count().index.to_list())
+line.add_yaxis('短评数', comments_num)
+
+line.set_global_opts(
+    title_opts=opts.TitleOpts(title="影评数量趋势图"),
+    tooltip_opts=opts.TooltipOpts(trigger="axis", axis_pointer_type="cross"),
+    xaxis_opts=opts.AxisOpts(name_rotate=60, axislabel_opts={"rotate":-20}),
+    legend_opts=opts.LegendOpts(pos_left="right", pos_top='15%', orient="vertical"),
+)
+
+line.set_series_opts(label_opts=opts.LabelOpts(is_show=False))
+
+s=line.render()
+print(s)
