@@ -11,7 +11,7 @@ import pandas as pd
 import wordcloud
 
 
-
+#结巴分词函数
 #def chinese_jieba(text):
 #    wordlist_jieba=jieba.lcut(text)
 #   space_wordlist=" ".join(wordlist_jieba)
@@ -22,6 +22,7 @@ import wordcloud
 path = r'douban_movie.csv'
 f = open(path,encoding='utf-8')
 
+#自定义停词表
 # exclude={'我们','你们','他们','它们','因为','因而','所以','如果','那么',\
 #           '如此','只是','但是','就是','这是','那是','而是','而且','虽然',\
 #           '这些','有些','然后','已经','于是','一种','一个','一样','时候',\
@@ -30,19 +31,11 @@ f = open(path,encoding='utf-8')
 #          '三个','也','的','我','是','了'\
 #           }
 
-
+#读取csv文件中的comment和recommend
 df=pd.read_csv("douban_movie.csv")
 comment_list=df['comment'].values.tolist()
 recommend_list=df['recommend'].values.tolist()
 text=f.read()
-
-
-
-#for jj in range (len(comment_list)):
-#    if recommend_list[jj]==1:
-#        text=text+chinese_jieba(comment_list[jj])
-#print(text)
-
 
 wordlist_jieba=jieba.lcut(text)
 space_wordlist=" ".join(wordlist_jieba)
@@ -59,8 +52,7 @@ w=wordcloud.WordCloud(font_path="C:/Windows/Fonts/simfang.ttf",#设置字体
                      mask= mask_pic,#设置背景图片
                      background_color="white",#设置背景颜色
                      max_font_size=150,#设置字体最大值
-                     max_words=2000,#设置最大显示的字数
-                     
+                     max_words=2000,#设置最大显示的字数                     
                      ).generate(space_wordlist)
 image=w.to_image()
 w.to_file('ciyun.png')
